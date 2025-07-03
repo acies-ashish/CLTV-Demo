@@ -666,6 +666,26 @@ frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data"}): {
     "field_connections_note": "Requires unified user identifiers across behavioral, transactional, and audit systems for full attribution."
 },
 
+frozenset({"Transactional", "Behavioral", "Demographic", "Order", "Cost Table"}): {
+    "cltv_type": "Profit-adjusted, behavior-informed CLTV modeling using full purchase, identity, engagement, and cost-of-acquisition context.",
+    "outcome": """
+- Customer-level CLTV incorporating order details and acquisition cost
+- Segment-level insights on profitable vs. unprofitable customers
+- Behavioral drivers of high- or low-margin customer journeys
+""",
+    "explains": """
+- Who the customer is and what they purchase
+- How user engagement drives revenue and repeat behavior
+- How cost impacts profitability at product, customer, and cohort levels
+""",
+    "does_not_explain": """
+- Operational breakdowns or service friction (no audit/support data)
+- External macroeconomic impact unless additional data is added
+- Multi-touch attribution unless marketing journey data is included
+""",
+    "field_connections_note": "Enables margin-level CLTV modeling with links via `customer_id`, `order_id`, and `campaign_id` across data sources."
+},
+
 frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data", "Cost Table"}): {
     "cltv_type": "End-to-end profitability-aware CLTV modeling integrating spend patterns, intent signals, user identity, service quality, and acquisition cost.",
     "outcome": """
