@@ -584,6 +584,151 @@ frozenset({"Economic / Environmental Data"}): {
         "field_connections_note": "Requires pairing with revenue or transactional data for net CLTV computation; standalone use only shows cost exposure, not value.",
     },
     # END: Cost Table Only Content
+    
+    frozenset({"Transactional", "Order"}): {
+    "cltv_type": "Detailed transaction-level CLTV using both payment and product-order data to model net revenue, returns, and product-level profitability.",
+    "outcome": """
+- Net CLTV per customer accounting for returns or item-level behavior
+- Insights into frequently purchased products or categories
+- Better prediction of customer lifetime revenue and churn likelihood
+""",
+    "explains": """
+- Product- and order-level contribution to lifetime value
+- Impact of order cancellations or return behavior
+- Purchasing cadence and preferences across SKUs
+""",
+    "does_not_explain": """
+- User intent or funnel behavior
+- Demographic segmentation or acquisition source
+- Operational delays unless fulfillment logs are included
+""",
+    "field_connections_note": "Strongly tied via `order_id` or `transaction_id`; enables per-SKU analysis and revenue integrity checks."
+},
+    
+    frozenset({"Transactional", "Order", "Audit Data"}): {
+    "cltv_type": "Merge financial transaction info with product-level and operational/audit data to derive profit-based CLTV, factoring in returns, cancellations, fulfillment efficiency, and net margin.",
+    "outcome": """
+- Ground-truth CLTV from net margin
+- Operational inefficiency insights (return %, delivery failures)
+- Attribution of profit loss to specific processes (e.g., delayed shipping)
+""",
+    "explains": """
+- What products are profitable (net of costs, refunds, cancellations)
+- Which customers churn due to operational pain points
+- Which channels or warehouses drive poor margins
+""",
+    "does_not_explain": """
+- User intent or engagement (no behavioral/digital journey)
+- Demographic segments or psychographic profiles
+- Purchase motivations or product affinity
+""",
+    "field_connections_note": "Powerful for root-cause attribution of customer churn and margin leakage when order operations data is granular and clean."
+},
+
+frozenset({"Transactional", "Behavioral", "Demographic", "Cost Table"}): {
+    "cltv_type": "Full-funnel CLTV modeling incorporating identity, intent, spend behavior, and acquisition cost—enabling profitability-optimized targeting and retention.",
+    "outcome": """
+- Customer-level profit-adjusted CLTV
+- Audience prioritization by ROI, not just revenue
+- Insights for acquisition targeting, messaging, and retention levers
+""",
+    "explains": """
+- Who high-value customers are (demographics)
+- How they behave before purchasing (behavioral signals)
+- What they spend and what it costs to acquire/retain them
+- Segment-wise cost-efficiency and retention ROI
+""",
+    "does_not_explain": """
+- Fulfillment or post-purchase issues unless audit/order data included
+- Channel-level granularity unless campaign linkage is present
+- Long-term economic sensitivity unless external data is used
+""",
+    "field_connections_note": "Powerful for aligning CLTV with CAC at segment and channel level. Key joins: `customer_id`, `campaign_id`, and behavioral user identifiers."
+},
+
+frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data", "Cost Table"}): {
+    "cltv_type": "End-to-end profitability-aware CLTV modeling integrating spend patterns, intent signals, user identity, service quality, and acquisition cost.",
+    "outcome": """
+- Customer-level CLTV adjusted for cost, behavior, and post-purchase friction
+- Segmented ROI models for acquisition and retention planning
+- Identification of high-value yet support-heavy or cost-inefficient users
+""",
+    "explains": """
+- Who your customers are, how they behave, and what they spend
+- How operational friction (e.g., login issues, failed payments) affects churn
+- What it costs to acquire and retain different customer types
+""",
+    "does_not_explain": """
+- Specific order or item-level contribution to CLTV unless order data is included
+- Environmental or regional macro factors unless external data is layered
+- Multi-touch campaign attribution without marketing touchpoint data
+""",
+    "field_connections_note": "Requires robust linking across `customer_id`, `event_id`, and `campaign_id`. Suitable for supervised CLTV models, retention flagging, and experience optimization."
+},
+
+frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data", "Cost Table", "Order"}): {
+    "cltv_type": "Comprehensive CLTV and profitability modeling combining identity, engagement, transactions, order-level performance, cost efficiency, and operational friction.",
+    "outcome": """
+- Customer-level net CLTV adjusted for cost, returns, and support activity
+- Identification of operational bottlenecks reducing lifetime value
+- Segment-specific acquisition and retention ROI analysis
+""",
+    "explains": """
+- Full customer value lifecycle from acquisition cost to fulfillment outcome
+- Which users are high-spend but operationally expensive or support-heavy
+- Behavior-to-order conversion patterns by demographic or cohort
+""",
+    "does_not_explain": """
+- External or seasonal economic influences unless macro data is included
+- Creative- or channel-level campaign attribution (unless touchpoint data added)
+- Psychological drivers unless layered with psychographic data
+""",
+    "field_connections_note": "Ideal for mature organizations with granular logs across customer, product, marketing, and operations. Supports CLTV prediction, churn diagnostics, and CAC-to-LTV alignment."
+},
+
+
+frozenset({"Order", "Cost Table"}): {
+    "cltv_type": "Order-based profitability estimation through indirect matching of product/order behavior to campaign spend or category-level cost assumptions.",
+    "outcome": """
+- Approximate customer value against campaign/marketing cost
+- Product or category performance by acquisition ROI
+- Indirect CLTV benchmarking without full transaction granularity
+""",
+    "explains": """
+- Patterns in repeat orders or return rates by segment
+- Cost exposure per product line or campaign
+- Revenue trends mapped to marketing efforts
+""",
+    "does_not_explain": """
+- Actual payment value (if discounts/refunds not tracked)
+- Net profit unless cost of goods sold or return impact is included
+- Engagement behavior or user journey
+""",
+    "field_connections_note": "Useful when `order_id` or `product_id` can be mapped to campaign or cost exposure sources."
+},
+
+frozenset({"Order", "Audit Data", "Cost Table"}): {
+    "cltv_type": "Operational CLTV framework integrating order actions, fulfillment performance, and marketing costs—used to detect value erosion from operational failures.",
+    "outcome": """
+- Net margin attribution by product, process, and campaign
+- Identification of high-cost, low-efficiency customer segments
+- Insights into refund, delay, and cancellation-driven churn
+""",
+    "explains": """
+- Cost and operational drivers behind customer churn
+- Which fulfillment or audit events lower LTV
+- Campaigns that result in poor operational outcomes
+""",
+    "does_not_explain": """
+- Who the customer is (no demographics)
+- Why they convert or engage (no behavioral signals)
+- Total spend unless paired with transaction data
+""",
+    "field_connections_note": "Ideal for fulfillment-heavy businesses; requires join logic on `order_id`, `event_id`, and campaign metadata."
+},
+
+
+
 
     frozenset({"Demographic", "Transactional"}): {
         "cltv_type": "Segment-aware historical CLTV modeling with actual transaction aggregation + demographic overlays",
