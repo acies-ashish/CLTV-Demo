@@ -1,10 +1,10 @@
-# 📊 CLTV Analysis App
+# CLTV Analysis App
 
 This app helps users explore and understand Customer Lifetime Value (CLTV) based on the data tables they have access to. It provides clear, structured guidance on what kind of CLTV insights can be generated from different combinations of data sources.
 
 ---
 
-## ✅ Key Features
+## Key Features
 
 - **Data Selection Interface:** Choose from available tables like Transactional, Demographic, Behavioral, Order, Audit, Cost, Marketing Touchpoint, and more.
 - **Dynamic Content Display:** Based on your selected data, the app shows:
@@ -17,7 +17,7 @@ This app helps users explore and understand Customer Lifetime Value (CLTV) based
 
 ---
 
-## 🎯 Purpose
+## Purpose
 
 This app is built to help analysts, marketers, and business teams:
 - Understand what can and cannot be explained with the available data
