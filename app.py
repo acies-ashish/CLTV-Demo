@@ -402,6 +402,188 @@ CLV_ANALYSIS_CONTENT = {
         "field_connections_note": "",
     },
     # END: Behavioral Only Content
+    
+    frozenset({"Marketing Touchpoint"}): {
+    "cltv_type": "Channel attribution and conversion touchpoint analysis for CLTV enrichment.",
+    "outcome": """
+- Identify high-performing channels or creatives
+- Conversion-likelihood by touchpoint
+- Assist scoring for retargeting or suppression
+""",
+    "explains": """
+- Which channels assist conversions
+- How often a user is touched before conversion
+- Channel-level influence on customer journey
+""",
+    "does_not_explain": """
+- Revenue or profitability
+- Individual purchase behavior
+- Demographic characteristics unless enriched
+""",
+    "field_connections_note": "Best used in combination with transactional data for revenue linkage."
+},
+
+frozenset({"Referral / Network Data"}): {
+    "cltv_type": "Referral-based value modeling to understand network-driven acquisition.",
+    "outcome": """
+- Value of referred vs. organic users
+- Virality or referral multiplier scores
+- Reward optimization for refer-a-friend programs
+""",
+    "explains": """
+- Influence of referral source on retention
+- Spread pattern of new user acquisition
+- Behavioral patterns of referred users
+""",
+    "does_not_explain": """
+- Spend patterns without transactions
+- Campaign ROI unless merged with cost data
+- Identity traits beyond referral linkage
+""",
+    "field_connections_note": "Useful when paired with transactional or demographic data to compare referred vs. organic CLTV."
+},
+
+frozenset({"Subscription / Plan"}): {
+    "cltv_type": "Subscription-based revenue continuity model for predictable CLTV forecasting.",
+    "outcome": """
+- Monthly Recurring Revenue (MRR) and churn rates
+- Plan-wise CLTV segmentation
+- Forecasting revenue continuity and retention risk
+""",
+    "explains": """
+- Long-term value based on subscription status
+- Influence of plan tiers on retention
+- Customer base stability through churn rates
+""",
+    "does_not_explain": """
+- Ad-hoc purchases or upsells
+- Customer intent or motivations
+- Identity context unless joined with user profiles
+""",
+    "field_connections_note": "Optimally paired with transactional and demographic data for complete view."
+},
+
+frozenset({"Customer Support"}): {
+    "cltv_type": "Support interaction analysis to understand satisfaction impact on CLTV.",
+    "outcome": """
+- CSAT impact on retention and churn
+- Support-heavy vs support-light customer segments
+- Issue categories leading to churn
+""",
+    "explains": """
+- Post-purchase service quality
+- Relationship between support interactions and loyalty
+- Impact of support responsiveness on CLTV
+""",
+    "does_not_explain": """
+- Product selection or spend patterns
+- Demographics or purchase motivations
+- Cost of support unless integrated
+""",
+    "field_connections_note": "Value amplified when combined with transaction and product data."
+},
+
+frozenset({"Psychographic Data"}): {
+    "cltv_type": "Persona-driven CLTV segmentation based on motivations and preferences.",
+    "outcome": """
+- CLTV estimates by persona type
+- Price sensitivity segmentation
+- Offers or message customization by affinity
+""",
+    "explains": """
+- Discount-driven vs value-driven customer profiles
+- Brand loyalty levels
+- Strategic alignment of offerings to motivations
+""",
+    "does_not_explain": """
+- Real spending or engagement
+- Time-based retention metrics
+- Marketing influence unless modeled with exposure
+""",
+    "field_connections_note": "Most effective with behavioral or transactional overlay."
+},
+
+frozenset({"Social/Sentiment Data"}): {
+    "cltv_type": "Sentiment-enriched CLTV modifiers using public opinion and review behavior.",
+    "outcome": """
+- CLTV modifiers based on sentiment trends
+- Segmenting promoters vs detractors
+- Social-driven churn or loyalty forecasting
+""",
+    "explains": """
+- Customer satisfaction indicators
+- Word-of-mouth potential
+- Online advocacy vs complaint trends
+""",
+    "does_not_explain": """
+- Actual monetary value
+- User identity or demographics
+- Channel spend unless layered in
+""",
+    "field_connections_note": "Requires joins with user IDs for customer-level insights."
+},
+
+frozenset({"Device / Tech Stack Data"}): {
+    "cltv_type": "Tech affinity modeling for CLTV influenced by device and platform behaviors.",
+    "outcome": """
+- Device-based value segmentation
+- App/web usage trends by value tier
+- Platform-specific performance optimization
+""",
+    "explains": """
+- Preferences in tech ecosystem
+- Device-wise engagement differences
+- Conversion patterns across tech stacks
+""",
+    "does_not_explain": """
+- Direct monetary contribution
+- User intent or campaign response
+- Identity resolution across sessions
+""",
+    "field_connections_note": "Supports UX optimization and attribution studies when linked to behavioral logs."
+},
+
+frozenset({"Economic / Environmental Data"}): {
+    "cltv_type": "Contextual enrichment for CLTV using macroeconomic and environmental indicators.",
+    "outcome": """
+- Region-wise CLTV variation analysis
+- External factor influence on churn or loyalty
+- Strategic planning by location-specific risks or seasonality
+""",
+    "explains": """
+- Impact of economic conditions on spending behavior
+- Regional trends in customer performance
+- Seasonality or climate effects on retention or acquisition
+""",
+    "does_not_explain": """
+- Individual-level purchasing behavior
+- Customer motivations or engagement
+- Product or channel performance without other data
+""",
+    "field_connections_note": "Most effective when layered with demographic or transactional data for localized strategy modeling."
+},
+
+    # START: Cost Table Only Content
+    frozenset({"Cost"}): {
+        "cltv_type": "Cost-based CLTV analysis to understand margin impact and acquisition efficiency.",
+        "outcome": """
+- Customer-level or segment-level profitability insights
+- Channel or campaign ROI comparison
+- Informs CAC (Customer Acquisition Cost) and margin thresholds
+""",
+        "explains": """
+- True profitability after accounting for cost to serve/acquire
+- Variance in margins across customer types or channels
+- Cost implications of retention strategies
+""",
+        "does_not_explain": """
+- Customer engagement or behavior patterns
+- Purchase frequency, recency, or monetary value
+- Identity or demographic profile of customers
+""",
+        "field_connections_note": "Requires pairing with revenue or transactional data for net CLTV computation; standalone use only shows cost exposure, not value.",
+    },
+    # END: Cost Table Only Content
 
     frozenset({"Demographic", "Transactional"}): {
         "cltv_type": "Segment-aware historical CLTV modeling with actual transaction aggregation + demographic overlays",
@@ -556,6 +738,32 @@ CLV_ANALYSIS_CONTENT = {
     """,
         "field_connections_note": "Connected indirectly via campaign attribution and customer acquisition mapping."
     },
+    
+    frozenset({
+    "Transactional", "Demographic", "Behavioral", "Order", "Audit Data",
+    "Marketing Touchpoint", "Referral / Network Data", "Subscription / Plan",
+    "Customer Support", "Psychographic Data", "Social/Sentiment Data",
+    "Device / Tech Stack Data", "Economic / Environmental Data", "Cost Table"
+}): {
+    "cltv_type": "Comprehensive, full-stack CLTV modeling leveraging every available signal—demographic, transactional, behavioral, operational, marketing, and environmental.",
+    "outcome": """
+- Hyper-personalized CLTV predictions at customer and segment level
+- Profitability- and behavior-aware customer segmentation
+- Unified view across acquisition, experience, retention, and revenue streams
+""",
+    "explains": """
+- Who the customer is, how they behave, what they buy, and why they stay or churn
+- How internal service, marketing, and operations impact lifetime value
+- External economic and environmental influences on behavior and spend
+""",
+    "does_not_explain": """
+- Rare edge-cases where offline data is not captured digitally
+- Latent psychological factors unless modeled from proxy signals
+- Non-attributable influence (e.g., word-of-mouth without digital trail)
+""",
+    "field_connections_note": "Requires robust customer ID mapping across systems and consistent data quality to maximize predictive performance."
+},
+
     # Add a default/fallback entry for when no specific combination matches or for incomplete combinations
     frozenset(): { # When nothing is selected
         "cltv_type": "No data sources selected. Please choose data from the sidebar to begin analysis.",
