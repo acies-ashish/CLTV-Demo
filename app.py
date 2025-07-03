@@ -686,6 +686,25 @@ frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data", "Cost Tab
     "field_connections_note": "Ideal for mature organizations with granular logs across customer, product, marketing, and operations. Supports CLTV prediction, churn diagnostics, and CAC-to-LTV alignment."
 },
 
+frozenset({"Transactional", "Behavioral", "Demographic", "Order"}): {
+    "cltv_type": "Holistic CLTV modeling integrating identity, intent signals, transaction history, and detailed order behavior for improved retention and revenue prediction.",
+    "outcome": """
+- Customer-level CLTV enriched with order-level detail
+- Segment-level product preferences and behavioral profiles
+- Purchase likelihood and churn forecasting using behavioral patterns
+""",
+    "explains": """
+- Who buys what, how often, and in what context
+- Patterns in repeat purchasing and product-level preferences
+- Early signs of churn or loyalty through engagement and order gaps
+""",
+    "does_not_explain": """
+- Marketing cost efficiency (no CAC without cost data)
+- Operational disruptions (no support/audit insights)
+- External influences unless combined with macro data
+""",
+    "field_connections_note": "Join via `customer_id`, `order_id`, and behavioral identifiers to connect transactions with engagement and order details for full-funnel modeling."
+},
 
 frozenset({"Order", "Cost Table"}): {
     "cltv_type": "Order-based profitability estimation through indirect matching of product/order behavior to campaign spend or category-level cost assumptions.",
