@@ -686,6 +686,26 @@ frozenset({"Transactional", "Behavioral", "Demographic", "Order", "Cost Table"})
     "field_connections_note": "Enables margin-level CLTV modeling with links via `customer_id`, `order_id`, and `campaign_id` across data sources."
 },
 
+frozenset({"Transactional", "Order", "Cost Table"}): {
+    "cltv_type": "Profit-based CLTV modeling combining purchase history, product-level order data, and acquisition/servicing cost.",
+    "outcome": """
+- Net CLTV per customer after accounting for order returns and cost
+- SKU-level profitability insights by customer and segment
+- Strategic view of high-cost vs high-value customers
+""",
+    "explains": """
+- What customers purchase and how often
+- The cost dynamics influencing overall customer profitability
+- Product or category-level contribution to CLTV
+""",
+    "does_not_explain": """
+- Why customers churn or engage (no behavioral data)
+- Demographic or identity context (no user profile data)
+- Service or operational experience (no audit/support data)
+""",
+    "field_connections_note": "Joins rely on `customer_id`, `order_id`, and `campaign_id` for linking transactional, order, and cost sources effectively."
+},
+
 frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data", "Cost Table"}): {
     "cltv_type": "End-to-end profitability-aware CLTV modeling integrating spend patterns, intent signals, user identity, service quality, and acquisition cost.",
     "outcome": """
