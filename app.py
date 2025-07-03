@@ -807,8 +807,6 @@ frozenset({"Order", "Audit Data", "Cost Table"}): {
 },
 
 
-
-
     frozenset({"Demographic", "Transactional"}): {
         "cltv_type": "Segment-aware historical CLTV modeling with actual transaction aggregation + demographic overlays",
         "outcome": """
