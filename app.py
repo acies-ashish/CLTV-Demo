@@ -646,6 +646,26 @@ frozenset({"Transactional", "Behavioral", "Demographic", "Cost Table"}): {
     "field_connections_note": "Powerful for aligning CLTV with CAC at segment and channel level. Key joins: `customer_id`, `campaign_id`, and behavioral user identifiers."
 },
 
+frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data"}): {
+    "cltv_type": "Experience-aware CLTV modeling integrating customer identity, spend behavior, engagement signals, and operational friction points.",
+    "outcome": """
+- Customer-level CLTV estimates enhanced with service quality signals
+- Segment-wise analysis of churn risk driven by operational breakdowns
+- Early churn flagging based on behavioral and audit patterns
+""",
+    "explains": """
+- Who your customers are and how they spend
+- What behaviors precede loyalty or churn
+- Where operational events (e.g., failed logins, payment errors) impact value
+""",
+    "does_not_explain": """
+- Cost to acquire or retain users (no marketing/campaign data)
+- Product-level profitability or returns (no order-level detail)
+- Economic or seasonal influences (no macro data)
+""",
+    "field_connections_note": "Requires unified user identifiers across behavioral, transactional, and audit systems for full attribution."
+},
+
 frozenset({"Transactional", "Behavioral", "Demographic", "Audit Data", "Cost Table"}): {
     "cltv_type": "End-to-end profitability-aware CLTV modeling integrating spend patterns, intent signals, user identity, service quality, and acquisition cost.",
     "outcome": """
