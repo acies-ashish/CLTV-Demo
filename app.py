@@ -564,7 +564,7 @@ frozenset({"Economic / Environmental Data"}): {
 },
 
     # START: Cost Table Only Content
-    frozenset({"Cost"}): {
+    frozenset({"Cost Table"}): {
         "cltv_type": "Cost-based CLTV analysis to understand margin impact and acquisition efficiency.",
         "outcome": """
 - Customer-level or segment-level profitability insights
