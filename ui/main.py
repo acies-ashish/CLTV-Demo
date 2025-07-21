@@ -1,6 +1,8 @@
+# ui/main.py
+
 import streamlit as st
 from collections import defaultdict
-from ui.data_dictionary import show_data_dictionary
+from ui.data_dictionary import SHEET_NAME_MAP, show_data_dictionary, show_data_dictionary_combined
 
 def render_main_content(DATA_DEFINITIONS, generate_cltv_analysis):
     st.title("CLV Potential Analysis")
@@ -16,53 +18,24 @@ def render_main_content(DATA_DEFINITIONS, generate_cltv_analysis):
     st.subheader("The Selected Data & How It Connects")
     st.markdown("<h5>Your Selected Data Sources:</h5>", unsafe_allow_html=True)
 
-    # Display each source with dictionary button
-    for source in selected:
-        with st.container():
-            col1, col2 = st.columns([8, 2])
-            with col1:
-                st.markdown(f"<span class='selected-source-item'>{DATA_DEFINITIONS[source]['icon']} {source}</span>", unsafe_allow_html=True)
-            if col2.button(f"📘 View Data Dictionary", key=f"dict_{source}"):
-                # 👇 Full-width output below the row
-                st.markdown(f"""
-                    <div style='margin-top: 1rem; margin-bottom: 1rem;'>
-                        <h4 style='display: inline; color: #3B82F6;'>📘 Data Dictionary:</h4>
-                        <span style='font-size: 1.1rem; font-weight: 600; margin-left: 8px; color: #111827;'>{source.capitalize()}</span>
-                    </div>
-                """, unsafe_allow_html=True)
-                show_data_dictionary(source.lower())
+    # Display icons/names for each source selected
+    icons_row = " ".join(
+        f"<span class='selected-source-item'>{DATA_DEFINITIONS[source]['icon']} {source}</span>"
+        for source in selected
+    )
+    st.markdown(icons_row, unsafe_allow_html=True)
 
+    # --- Combined Data Dictionary Table ---
     st.markdown("<h6>Available Fields & Connections:</h6>", unsafe_allow_html=True)
-
-    all_fields = defaultdict(list)
-    for source in selected:
-        for field in DATA_DEFINITIONS[source]['fields']:
-            all_fields[field].append(source)
-
-    all_unique_fields = set()
-    for source in selected:
-        all_unique_fields.update(DATA_DEFINITIONS[source]['fields'])
-
-    common_fields = {field for field, sources in all_fields.items() if len(sources) > 1}
-
-    field_tags = ""
-    for field in sorted(all_unique_fields):
-        if field in common_fields:
-            field_tags += f"<span class='connected-field-tag'>{field}</span> "
-        else:
-            field_tags += f"<span class='field-tag'>{field}</span> "
-
-    if field_tags:
-        st.markdown(field_tags, unsafe_allow_html=True)
-        if len(selected) > 1:
-            st.markdown(
-                "<p class='info-note'><i>Fields with a <strong>blue background</strong> are common across multiple selected data sources, indicating potential connection points.</i></p>",
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown("<p class='info-note'><i>Select more than one data source to see common fields highlighted.</i></p>", unsafe_allow_html=True)
+    sheet_names = [SHEET_NAME_MAP[source] for source in selected]
+    if len(selected) == 1:
+        show_data_dictionary(SHEET_NAME_MAP[selected[0]])
     else:
-        st.markdown("<p class='info-note'>No fields available from selected sources.</p>", unsafe_allow_html=True)
+        show_data_dictionary_combined(selected)
+        st.markdown(
+            "<p class='info-note'><i>Rows highlighted in blue are fields common to multiple selected data sources, indicating potential connection points. The left-most column specifies the original source for each field.</i></p>",
+            unsafe_allow_html=True
+        )
 
     # --- Section 2: CLTV Capabilities and Insights ---
     st.subheader("CLTV Capabilities and Insights")
@@ -76,8 +49,6 @@ def render_main_content(DATA_DEFINITIONS, generate_cltv_analysis):
         <h5>Outcomes:</h5>
         <div style='color:#4B5563; line-height:1.6;'>
             """ + analysis['outcome'] + """
-       
-    
     """, unsafe_allow_html=True)
 
     # --- Can Explain Block ---
@@ -86,8 +57,6 @@ def render_main_content(DATA_DEFINITIONS, generate_cltv_analysis):
         <h5 style='color:#065F46;'>Can Explain:</h5>
         <div style='color:#065F46; line-height:1.6;'>
             """ + analysis['explains'] + """
-       
-   
     """, unsafe_allow_html=True)
 
     # --- Cannot Explain Block ---
@@ -96,6 +65,4 @@ def render_main_content(DATA_DEFINITIONS, generate_cltv_analysis):
         <h5 style='color:#991B1B;'>Cannot Explain:</h5>
         <div style='color:#991B1B; line-height:1.6;'>
             """ + analysis['does_not_explain'] + """
-        
-    
     """, unsafe_allow_html=True)
