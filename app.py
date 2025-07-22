@@ -7,7 +7,7 @@ from ui.sidebar import render_sidebar
 from ui.main import render_main_content
 
 st.set_page_config(
-    page_title="Strategic CLTV Data Analyzer",
+    page_title="CLTV Data Dictionary",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
