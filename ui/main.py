@@ -66,3 +66,5 @@ def render_main_content(DATA_DEFINITIONS, generate_cltv_analysis):
         <div style='color:#991B1B; line-height:1.6;'>
             """ + analysis['does_not_explain'] + """
     """, unsafe_allow_html=True)
+    
+    
